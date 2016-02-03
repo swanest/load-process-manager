@@ -1,0 +1,25 @@
+{
+  "name": "load-process-manager",
+  "version": "0.1.0",
+  "description": "Load process manager helps node developers to manage request handling accross processes by taking into account the actual load. It eases also interprocess communication.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swanest/load-process-manager.git"
+  },
+  "keywords": [
+    "process-manager",
+    "node",
+    "ipc",
+    "load-balancer"
+  ],
+  "author": "Youri Tolstoy <ytolstoy@gmail.com> (http://disruptivestudio.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/swanest/load-process-manager/issues"
+  },
+  "homepage": "https://github.com/swanest/load-process-manager#readme"
+}
