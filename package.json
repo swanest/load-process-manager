@@ -4,7 +4,10 @@
   "description": "Load process manager helps node developers to manage request handling accross processes by taking into account the actual load. It eases also interprocess communication.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec --bail --check-leaks test/ test/"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
   },
   "repository": {
     "type": "git",
@@ -16,13 +19,23 @@
     "ipc",
     "load-balancer"
   ],
-  "author": "Youri Tolstoy <ytolstoy@gmail.com> (http://disruptivestudio.com/)",
+  "author": "Swanest <hello@swanest.com> (https://swanest.com/)",
+  "contributors": [
+    "Youri Tolstoy <youri@swanest.com>",
+    "Cyril Lequeux <cyril@swanest.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/swanest/load-process-manager/issues"
   },
   "homepage": "https://github.com/swanest/load-process-manager#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  },
   "dependencies": {
+    "debug": "^2.2.0",
+    "q": "^1.4.1",
     "node-uuid": "^1.4.7",
     "underscore": "^1.8.3"
   }
