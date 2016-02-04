@@ -77,7 +77,7 @@ worker.ready();
  * `supervisor.enqueue(payload, callback, options)`
    * Adds a task to the queue and try to assign it to a worker.
    * options by default: `{timeout: config.timeout, retries: config.retries}`
- * `supervisor.healt()` returns an array with a per child `pid`, `rss`, and heap memory usage like:
+ * `supervisor.health()` returns an array with a per child `pid`, `rss`, and heap memory usage like:
 ```js
 [
  {pid: 1234, rss: 21827584, heapTotal: 7556896, heapUsed: 4371152 },
@@ -91,6 +91,7 @@ worker.ready();
    * online - will fire when children have all called `worker.ready()`
    * a custom event emitted by children with the payload passed
  * `supervisor.broadcast('eventOfYourChoice' [, payload])` will broadcast an event to the children processes with the `payload` passed. If no `payload` is passed then children will get `undefined` as the first callback argument.
+
 ### Worker
  * `worker.on('eventName' [, callback]) [.then(callback)]` listens for an event to happen and will call `callback` when event will fire, one of `callback` or `.then(callback)` is mandatory. Available events:
    * `'request'` will fire when there is an incoming request coming from the master process. The callback will have an object of type `Request` has first argument and has the following API:
