@@ -20,11 +20,12 @@ worker.on('request', function (req) {
     })(count), 1000);
 });
 var t = '';
+worker.ready();
 if (Math.random() > 0.6) {
-    console.log('eating memory');
-    for (i = 0; i < 1000000; i++) {
-        t += 'bqeuifgqlizeuuiqlzfbeilquzqjfbqeuifgqlizeuuiqlzfbeilquzqjfbqeuifgqlizeuuiqlzfbeilquzqjfbqeuifgqlizeuuiqlzfbeilquzqjfbqeuifgqlizeuuiqlzfbeilquzqjfbqeuifgqlizeuuiqlzfbeilquzqjfbqeuifgqlizeuuiqlzfbeilquz';
-    }
+    setTimeout(function () {
+        console.log('Make worker busy');
+        worker.busy();
+    }, 1000);
 }
 
 console.log(process.memoryUsage());
@@ -32,5 +33,3 @@ console.log(process.memoryUsage());
 //worker.on('softKill', function (done) {
 //    setTimeout(done, 2000);
 //});
-
-worker.ready();

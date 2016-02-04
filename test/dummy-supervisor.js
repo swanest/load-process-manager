@@ -15,11 +15,12 @@ var supervisor = require('../index.js').supervisor({
 
 supervisor.on('SIGINT', function () {
     console.log('SIGINT received through supervisor');
-    supervisor.softKill(function () {
-        console.log('soft kill done')
-    }).then(function () {
-        console.log('soft kill done promised')
-    });
+    supervisor.hardKill();
+    //supervisor.softKill(function () {
+    //    console.log('soft kill done')
+    //}).then(function () {
+    //    console.log('soft kill done promised')
+    //});
 });
 
 supervisor.on('online', function () {
