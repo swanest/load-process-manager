@@ -28,11 +28,11 @@ worker.ready();
 //    }, 1000);
 //}
 
-//var emitData = {foo:Math.random()};
-//console.log("worker emits", emitData);
-//worker.emit("myEmit", emitData, function(responseFromSupervisor){
-//   console.log("myEmit event", emitData, "received a response", responseFromSupervisor);
-//});
+var emitData = {foo:Math.random()};
+console.log("worker pid "+process.pid+" emits", emitData);
+worker.emit("myEmit", emitData, function(responseFromSupervisor){
+   console.log("myEmit event", emitData, "received a response", responseFromSupervisor);
+});
 
 console.log(process.memoryUsage());
 

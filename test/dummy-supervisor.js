@@ -24,11 +24,8 @@ supervisor.on('SIGINT', function () {
 });
 
 supervisor.on("myEmit", function(req){
-    console.log("supervisor received an emit from worker", req.data, req.id);
-    console.log("supervisor responds to it");
-    console.log(req);
+    console.log("supervisor received an emit from worker pid"+req.pid, req.data, req.id, "now reponds:");
     req.respond({foo:req.data.foo*10});
-
 });
 
 supervisor.on('online', function () {
