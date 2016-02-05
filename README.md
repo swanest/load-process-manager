@@ -89,7 +89,7 @@ worker.ready();
  * `supervisor.on('eventName' [, callback]) [.then(callback)]` listens for an event to happen and will call `callback` when event will fire, one of `callback` or `.then(callback)` is mandatory. Available events:
    * `'SIGINT'` is the same as `process.on('SIGINT')` but the supervisor already handles SIGINT messages to kill children (hardly) and then kill itself. If you implement it then this behaviour is removed
    * online - will fire when children have all called `worker.ready()`
-   * a custom event emitted by children with the payload passed
+   * a custom event emitted by children with the `Request` passed
  * `supervisor.broadcast('eventOfYourChoice' [, payload])` will broadcast an event to the children processes with the `payload` passed. If no `payload` is passed then children will get `undefined` as the first callback argument.
 
 ### Worker
@@ -102,7 +102,7 @@ worker.ready();
     * 'hardKill' will fire when master has called `supervisor.hardKill()` that will not prevent the process to die and will die straightly after the event has been fired.
     * a custom event emitted by the parent with the payload associated.
   * `worker.ready()` notifies the parent that the worker is ready to accept incoming requests (THIS IS MANDATORY - otherwise nothing will happen)
-  * `worker.emit('eventOfYourChoice' [, payload])` will emit an event to it's parent with the given `payload`. If no `payload` is passed then the parent will get `undefined` as the first callback argument.
+  * `worker.emit('eventOfYourChoice' [, payload] [, callback])` will emit an event to it's parent with the given `payload`. If no `payload` is passed then the parent will get `undefined` as `Request.data`.
   * `worker.busy()` tells the supervisor that the child will not accept any new incoming request. To make the flow work normally again, call `worker.ready()` again. NB: when processes are `softKilled` the child that has called `busy()` will not die until it's `ready()` again.
   * `worker.requests()` returns an `array` of the ongoing requests where each element is a `Request` object. Note that this array is a copy of the real one and doesn't let you alter it. On the other hand it lets you use the API's of ongoing requests.
 
