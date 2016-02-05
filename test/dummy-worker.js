@@ -21,12 +21,12 @@ worker.on('request', function (req) {
 });
 var t = '';
 worker.ready();
-if (Math.random() > 0.6) {
-    setTimeout(function () {
-        console.log('Make worker busy');
-        worker.busy();
-    }, 1000);
-}
+//if (Math.random() > 0.6) {
+//    setTimeout(function () {
+//        console.log('Make worker busy');
+//        worker.busy();
+//    }, 1000);
+//}
 
 console.log(process.memoryUsage());
 
