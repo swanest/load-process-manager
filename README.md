@@ -3,6 +3,13 @@
 load-process-manager is tiny library that eases the hassle of handling and managing child process. It will also spread
 requests across workers in an efficient way taking into account the pressure of the workers (RSS memory usage at the moment)
 
+## Breaking change since v1.x
+ * LPM handles Streams v3 (parent -- > child / child -- > parent) and
+ * Sending sockets to children
+ * The callback of the requests responses will now give a `Response` object instead of just the responded payload
+
+So therefore LPM now works only with node `>= v0.12.x`
+
 ## Example
 
 Master process:
@@ -74,9 +81,15 @@ worker.ready();
     }
 }
 ```
- * `supervisor.enqueue(payload, callback, options)`
+ * `supervisor.enqueue(payload, streamOrSocket, options, callback)` (thenable)
    * Adds a task to the queue and try to assign it to a worker.
    * options by default: `{timeout: config.timeout, retries: config.retries}`
+   * The callback receives a `Response` object with the following API:
+     * `.data` property with the response data received over IPC
+     * `.id` id of the request ([UUID-V4](https://en.wikipedia.org/wiki/Universally_unique_identifier))
+     * `.createdAt` `hrtime` of when the request was originally enqueued
+     * `.hasStream` self explanatory
+     * `.stream` gain access to the stream sent by the child
  * `supervisor.health()` returns an array with a per child `pid`, `rss`, and heap memory usage like:
 ```js
 [
@@ -98,6 +111,12 @@ worker.ready();
      * `req.data` will give you the payload send via the supervisor (aka master)
      * `req.respond([object answer])` replies to the original request.
      * `req.id` will return the ID of the request, a generated `UUIDv4` is used
+     * `req.createdAt` will return `hrtime` of when the request has been created
+     * `req.hasStream`self explanatory
+     * `req.hasSocket` self explanatory
+     * `req.stream` accessor to the stream sent by the parent
+     * `req.socket` accessor to the socket sent by the parent
+     * `req.ack()` just acknowledge that the request has been handled and that the parent can continue sending stuff
     * `'softKill', doneCallback` will fire when the master process called `supervisor.softKill()` if you implement it, then you need to call the `doneCallback` function when finished otherwise the process will stay alife endlessly. If you don't implement it, then the process will die when all requests have been answered
     * 'hardKill' will fire when master has called `supervisor.hardKill()` that will not prevent the process to die and will die straightly after the event has been fired.
     * a custom event emitted by the parent with the payload associated.
