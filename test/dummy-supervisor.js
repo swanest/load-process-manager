@@ -124,7 +124,11 @@ supervisor.on('online', function () {
     //        })(i));
     //    }
     //}, 2000);
+
+    server.listen(3100);
 });
+
+
 
 var server = net.createServer(function (socket) {
     supervisor.enqueue({test: 'test'}, socket).then(function () {
@@ -140,7 +144,5 @@ var server = net.createServer(function (socket) {
     //socket.write('test');
     //socket.end('test2');
 });
-
-server.listen(3100);
 
 supervisor.start();

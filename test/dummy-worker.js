@@ -41,8 +41,14 @@ worker.on('request', function (req) {
         req.socket.on('end', function() {
             console.log('socket is finished');
         });
-        var rS = fs.createReadStream(__dirname + '/stream-b.dat');
-        rS.pipe(req.socket);
+        //var rS = fs.createReadStream(__dirname + '/stream-b.dat');
+        //rS.pipe(req.socket);
+        req.socket.on('end', function () {
+            //rS.close();
+        });
+        req.socket.end('test');
+        req.socket.on('close', function () {});
+        req.socket.on('error', function () {});
         //req.socket.write('testouille');
         //req.socket.end('finish');
     } else {
