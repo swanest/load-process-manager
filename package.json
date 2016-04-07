@@ -1,6 +1,6 @@
 {
   "name": "load-process-manager",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Load process manager helps node developers to manage request handling accross processes by taking into account the actual load. It eases also interprocess communication.",
   "main": "index.js",
   "scripts": {
