@@ -125,11 +125,16 @@ supervisor.on('online', function () {
     //    }
     //}, 2000);
 
-    for (var i = 0; i < 10; i++) {
-        net.connect(3100, function () {
+    //for (var i = 0; i < 10; i++) {
+    //    net.connect(3100, function () {
+    //
+    //    });
+    //}
 
-        });
-    }
+});
+
+supervisor.on('childSpawned', function () {
+    console.log('spawned process', arguments);
 });
 
 

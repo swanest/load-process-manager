@@ -101,7 +101,8 @@ worker.ready();
  * `supervisor.hardKill()` kills children and the master without waiting for requests to end (ie: useful in development)
  * `supervisor.on('eventName' [, callback]) [.then(callback)]` listens for an event to happen and will call `callback` when event will fire, one of `callback` or `.then(callback)` is mandatory. Available events:
    * `'SIGINT'` is the same as `process.on('SIGINT')` but the supervisor already handles SIGINT messages to kill children (hardly) and then kill itself. If you implement it then this behaviour is removed
-   * online - will fire when children have all called `worker.ready()`
+   * `'online'` - will fire when children have all called `worker.ready()`
+   * `'childSpawned'` - fired each time a new worker is spawned
    * a custom event emitted by children with the `Request` passed
  * `supervisor.broadcast('eventOfYourChoice' [, payload])` will broadcast an event to the children processes with the `payload` passed. If no `payload` is passed then children will get `undefined` as the first callback argument.
 
