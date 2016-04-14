@@ -61,6 +61,16 @@ worker.on('request', function (req) {
     //}
     //})(count), 1000);
 });
+
+var utils = require('../lib/utilities');
+utils.on('test', function () {
+    console.log('event listener');
+});
+utils.once('test', function() {
+    console.log('only once');
+});
+utils.trigger('test', {});
+utils.trigger('test', {});
 var t = '';
 worker.ready();
 //if (Math.random() > 0.6) {

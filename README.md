@@ -99,7 +99,7 @@ worker.ready();
 ```
  * `supervisor.softKill( [callback] ) [.then(callback)]` kills child processes and the master process but it will wait until all requests are finished first (if `on('softKill',...)` is not implemented in the workers) this is the clean way of kill children. (NB: children will not accept any new incoming requests. Only custom events can be sent back and forth)
  * `supervisor.hardKill()` kills children and the master without waiting for requests to end (ie: useful in development)
- * `supervisor.on('eventName' [, callback]) [.then(callback)]` listens for an event to happen and will call `callback` when event will fire, one of `callback` or `.then(callback)` is mandatory. Available events:
+ * `supervisor.on('eventName' [, callback]) [.then(callback)]` (`supervisor.once(..)` also exists) listens for an event to happen and will call `callback` when event will fire, one of `callback` or `.then(callback)` is mandatory. Available events:
    * `'SIGINT'` is the same as `process.on('SIGINT')` but the supervisor already handles SIGINT messages to kill children (hardly) and then kill itself. If you implement it then this behaviour is removed
    * `'online'` - will fire when children have all called `worker.ready()`
    * `'childSpawned'` - fired each time a new worker is spawned
@@ -107,7 +107,7 @@ worker.ready();
  * `supervisor.broadcast('eventOfYourChoice' [, payload])` will broadcast an event to the children processes with the `payload` passed. If no `payload` is passed then children will get `undefined` as the first callback argument.
 
 ### Worker
- * `worker.on('eventName' [, callback]) [.then(callback)]` listens for an event to happen and will call `callback` when event will fire, one of `callback` or `.then(callback)` is mandatory. Available events:
+ * `worker.on('eventName' [, callback]) [.then(callback)]` (`worker.once(..)` also exists) listens for an event to happen and will call `callback` when event will fire, one of `callback` or `.then(callback)` is mandatory. Available events:
    * `'request'` will fire when there is an incoming request coming from the master process. The callback will have an object of type `Request` has first argument and has the following API:
      * `req.data` will give you the payload send via the supervisor (aka master)
      * `req.respond([object answer])` replies to the original request.
