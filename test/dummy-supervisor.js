@@ -1,7 +1,8 @@
 var fs = require('fs'),
     stream = require('stream'),
     through2 = require('through2'),
-    net = require('net');
+    net = require('net'),
+    server;
 
 process.on('uncaughtException', function (e) {
     console.log(e.stack);
@@ -131,14 +132,12 @@ supervisor.on('online', function () {
     //    });
     //}
 
+    supervisor.broadcast('server', {}, server);
+
 });
 
-supervisor.on('childSpawned', function () {
-    console.log('spawned process', arguments);
-});
 
-
-var server = net.createServer(function (socket) {
+server = net.createServer(function (socket) {
     supervisor.enqueue({test: 'test'}, socket).then(function () {
         console.log(arguments);
     });

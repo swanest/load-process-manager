@@ -71,6 +71,9 @@ utils.once('test', function() {
 });
 utils.trigger('test', {});
 utils.trigger('test', {});
+worker.on('server', function (d) {
+    console.log(d);
+});
 var t = '';
 worker.ready();
 //if (Math.random() > 0.6) {
