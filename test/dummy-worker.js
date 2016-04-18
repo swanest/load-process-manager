@@ -89,7 +89,26 @@ worker.ready();
 //   console.log("myEmit event", emitData, "received a response", responseFromSupervisor);
 //});
 
-console.log(process.memoryUsage());
+var server = require('http').createServer(function (req, res) {
+    //supervisor.enqueue({test: 'test'}, socket).then(function () {
+    //    console.log(arguments);
+    //});
+    //socket.on('data', function (d) {
+    //    console.log('data', d.toString());
+    //});
+    //socket.on('end', function () {
+    //    console.log('closed');
+    //});
+    //
+    //socket.write('test');
+    //socket.end('test2');
+    //socket.on('request', function (req, res) {
+        console.log('request received on %s', process.pid);
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end('ok');
+    //});
+});
+server.listen(3100);
 
 //worker.on('softKill', function (done) {
 //    setTimeout(done, 2000);

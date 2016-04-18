@@ -4,6 +4,10 @@ var fs = require('fs'),
     net = require('net'),
     server;
 
+process.title='lpm';
+
+console.log('exec');
+
 process.on('uncaughtException', function (e) {
     console.log(e.stack);
 });
@@ -17,7 +21,7 @@ process.on('unhandledException', function (e) {
 var supervisor = require('../index.js').supervisor({
     worker: {
         file: __dirname + '/dummy-worker.js',
-        count: 2
+        count: 4
     }
 });
 
@@ -132,25 +136,8 @@ supervisor.on('online', function () {
     //    });
     //}
 
-    supervisor.broadcast('server', {}, server);
+    //supervisor.broadcast('server', {}, server);
 
 });
-
-
-server = net.createServer(function (socket) {
-    supervisor.enqueue({test: 'test'}, socket).then(function () {
-        console.log(arguments);
-    });
-    //socket.on('data', function (d) {
-    //    console.log('data', d.toString());
-    //});
-    //socket.on('end', function () {
-    //    console.log('closed');
-    //});
-    //
-    //socket.write('test');
-    //socket.end('test2');
-});
-server.listen(3100);
 
 supervisor.start();
