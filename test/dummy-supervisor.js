@@ -4,7 +4,7 @@ var fs = require('fs'),
     net = require('net'),
     server;
 
-process.title='lpm';
+process.title = 'lpm';
 
 console.log('exec');
 
@@ -68,29 +68,33 @@ supervisor.on('online', function () {
     process.title = 'node-master';
     console.time('startProcess');
 
-    //for (var i = 0; i < totProcessed; i++) {
-    //    setTimeout(function (i) {
-    //        return function () {
-    //            var rS = fs.createReadStream(__dirname + '/stream.dat');
-    //            supervisor.enqueue({streamTest: 'test' + i}, rS).then(function (response) {
-    //                console.log('response for the stream ' + i, response.data);
-    //                response.stream
-    //                    .on('data', function (d) {
-    //                        conusmmed += d.length;
-    //                    })
-    //                    .on('end', function () {
-    //                        totProcessed--;
-    //                        console.log('finished ' + i, response.data, process.memoryUsage());
-    //                        console.log('remaining ' + totProcessed);
-    //                        if (totProcessed <= 0) {
-    //                            console.timeEnd('startProcess');
-    //                            console.log('processed bytes', conusmmed * 2);
-    //                        }
-    //                    });
-    //            });
-    //        }
-    //    }(i), i * 10);
-    //}
+    //setInterval(function () {
+    //    supervisor.enqueue({test: 'test'});
+    //}, 1000);
+
+    for (var i = 0; i < totProcessed; i++) {
+        setTimeout(function (i) {
+            return function () {
+                var rS = fs.createReadStream(__dirname + '/stream.dat');
+                supervisor.enqueue({streamTest: 'test' + i}, rS).then(function (response) {
+                    console.log('response for the stream ' + i, response.data);
+                    response.stream
+                        .on('data', function (d) {
+                            conusmmed += d.length;
+                        })
+                        .on('end', function () {
+                            totProcessed--;
+                            console.log('finished ' + i, response.data, process.memoryUsage());
+                            console.log('remaining ' + totProcessed);
+                            if (totProcessed <= 0) {
+                                console.timeEnd('startProcess');
+                                console.log('processed bytes', conusmmed * 2);
+                            }
+                        });
+                });
+            }
+        }(i), i * 10);
+    }
 
     //for (var i = 0; i < totProcessed; i++) {
     //    setTimeout(function (i) {
