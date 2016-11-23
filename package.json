@@ -35,9 +35,9 @@
   },
   "dependencies": {
     "debug": "^2.2.0",
-    "node-uuid": "^1.4.7",
     "q": "^1.4.1",
     "through2": "^2.0.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "uuid": "^3.0.0"
   }
 }
